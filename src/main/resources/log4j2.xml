@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+     <File name="File" fileName="logs/application.log">
+      <PatternLayout>
+        <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
+      </PatternLayout>
+    </File>
+  </Appenders>
+
+  
+  <Loggers>
+  <!--  개발자가 만든 클래스 로깅 처리 -->
+  <Logger name="com.company.controller" level="debug">
+  		<AppenderRef ref="File"/> <!-- 넣으면 파일로도 기록 시키겠다. -->
+  </Logger> 
+  <Logger name="com.company.service" level="debug" />
+  <Logger name="com.company.mapper" level="debug"/>
+
+	<!--  스프링 프레임 워크 로깅 처리 --> 
+  <Logger name="org.springframework.core" level="info"/>
+  <Logger name="org.springframework.beans" level="info"/>
+  <Logger name="org.springframework.context" level="info"/>
+  <Logger name="org.springframework.web" level="info"/> 	
+  <Logger name="org.springframework.jdbc" level="debug"/> 	
+    <Root level="info">
+      <AppenderRef ref="Console"/>
+    </Root>
+  </Loggers>
+</Configuration>
