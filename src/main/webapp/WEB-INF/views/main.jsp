@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<c:out value="test mew fact"/>
-test
+<a href="/user/sign-in">sign in</a>
+
 </body>
 </html>
