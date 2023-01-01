@@ -13,7 +13,7 @@
     이걸로 하자.  ==> 아니면 그냥 Post로 넘겨서.. 발리데이션 하고 넥스트 페이지 띄울까..
 
 
-    <form name="submitForm" method="post">
+    <form name="submitForm" method="post" >
         userId
         <input type="text" name="id" id="id" class="user-id" >
         <button type="button" onclick="sameIdCheck()" id="idCheckButton" onchange="javascript:pageObject.idCheck = false">sameIdCheck</button>
@@ -29,7 +29,10 @@
         <br/>
         address
         <input type="text" name="address" id="address">
+        <br/>
         <input type="number" name="age" id="age" value="1">
+        <br/>
+        이름 <input type="text" name="name" id="name"/>
         <button type="button" onclick="formSubmit()">submit</button>
     </form>
 </body>
@@ -92,6 +95,7 @@
         if ( pageObject.idCheck && pageObject.passwordCheck) {
             var form = document.submitForm;
             form.submit();
+
         }
     }
 </script>

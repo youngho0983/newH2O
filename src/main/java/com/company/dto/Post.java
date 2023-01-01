@@ -10,7 +10,6 @@ import lombok.*;
 public class Post {
     String writer;
     String title;
-    String post;
-    String mainTest;
+    String mainText;
     String editTime;
 }

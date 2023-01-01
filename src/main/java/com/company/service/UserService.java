@@ -2,6 +2,7 @@ package com.company.service;
 
 import com.company.dto.User;
 import com.company.mapper.UserMapper;
+import com.company.tool.EncryptTool;
 import com.company.tool.RegexpTool;
 import com.company.tool.SessionConst;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class UserService {
 
     @Autowired
     RegexpTool regexpTool;
+
+    @Autowired
+    EncryptTool encryptTool;
 
     public boolean checkCanUseUserId(String userId){
         System.out.println("UserService ==> check same UserId " + userId);
@@ -38,7 +42,8 @@ public class UserService {
 
     public boolean signInUser(User user){
         System.out.println("UserService ==> sign in user " + user);
-
+        if(!checkCanUseUserInfo(user)) return false;
+        user.setPassword(encryptTool.encrypt(user.getPassword()));
         if (userMapper.signInUser(user) == 1 ) return true ; return false;
     }
 

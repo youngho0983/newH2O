@@ -2,6 +2,7 @@ package com.company.controller;
 
 import com.company.dto.Post;
 import com.company.service.TestService;
+import com.company.tool.EncryptTool;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,11 @@ public class TestController {
     @Autowired
     TestService testService;
 
+
+    @Autowired
+    EncryptTool encryptTool;
+
+
     @GetMapping("/test")
     @ResponseBody
     public String test(){
@@ -35,10 +41,16 @@ public class TestController {
 
         List<Post> testList = new ArrayList<>();
         for(int i = 0; i < 10; i ++){
-            testList.add(new Post("writer" + i, "title" + i, "poset" + i, "mainText" + i ,"editTime" + i));
+            testList.add(new Post("writer" + i, "title" + i , "mainText" + i ,"editTime" + i));
         }
         model.addAttribute(testList);
         return "jsonView";
     }
 
+    @GetMapping("/encryptKeyTest")
+    public String encryptTest(Model model) {
+        model.addAttribute("test",encryptTool.encrypt("hello"));
+
+        return "jasonView";
+    }
 }

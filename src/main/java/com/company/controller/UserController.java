@@ -19,7 +19,7 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/sign-in")
+    @GetMapping("/signin")
     public String signIn() {
         System.out.println("get Into Sign-in page");
 
@@ -28,7 +28,7 @@ public class UserController {
 
 
     @PostMapping("/sign-in")
-    public String makeUser(@RequestBody User user) {
+    public String makeUser(User user) {
         System.out.println(user);
 
         if(  !userService.checkCanUseUserInfo(user)) return "/user/signIn";
@@ -45,6 +45,11 @@ public class UserController {
         return "jsonView";
     }
 
+    @GetMapping("/login")
+    public String login(HttpServletRequest request){
+        request.getSession().invalidate();;
+        return"/user/login";
+    }
     @PostMapping("/login")
     public String login(User user, HttpServletRequest request, HttpServletResponse response) {
         if (!userService.loginUser(user, request, response)) {
@@ -52,4 +57,5 @@ public class UserController {
         }
         return "/main";
     }
+
 }

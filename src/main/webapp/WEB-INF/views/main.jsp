@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<a href="/user/sign-in">sign in</a>
-
+<a href="/user/signin">signin</a>
+<a href="/user/login">login</a>
 </body>
 </html>
