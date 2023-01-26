@@ -10,19 +10,31 @@
 <head>
     <title>Title</title>
 </head>
+<script type="text/javascript" src="/resources/js/defaultJs.js"></script>
 <body>
-  <form name="submitForm" id="submitForm" method="post">
+  <form name="submitForm"  id="submitForm" method="post">
     id
-    <input type="text" name="id">
+    <input type="text" name="id" id="id">
     <br/>
     password
-    <input type="password" name="password">
-    <button type="button" >로그인</button>
+    <input type="password" name="password" id="password">
+    <button type="button" onclick="tryLogin()" >로그인</button>
   </form>
 
   <script>
 
+    function afterAjxFunction() {
+      console.log(xmlHttpResultObj.response);
+    }
 
+    function tryLogin() {
+      var obj = {
+        "id": document.getElementById("id").value,
+        "password": document.getElementById("password").value
+      }
+      ajaxRequest("POST","login-try",JSON.stringify(obj) );
+
+    }
   </script>
 </body>
 </html>

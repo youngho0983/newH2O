@@ -4,6 +4,7 @@ import com.company.dto.User;
 import com.company.mapper.UserMapper;
 import com.company.tool.EncryptTool;
 import com.company.tool.RegexpTool;
+import com.company.tool.SecurityTool;
 import com.company.tool.SessionConst;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,12 +12,15 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 @Service
 public class UserService {
     @Autowired
     UserMapper userMapper;
 
+    @Autowired
+    SecurityTool securityTool;
     @Autowired
     RegexpTool regexpTool;
 
@@ -34,7 +38,9 @@ public class UserService {
     }
 
     public boolean checkCanUseUserInfo(User user) {
-        if ( !regexpTool.idCheck(user.getId())||!regexpTool.passwordCheck(user.getPassword())||!checkCanUseUserId(user.getId())) {
+        if ( 	!regexpTool.idCheck(user.getId())||
+        		!regexpTool.passwordCheck(user.getPassword())||
+        		!checkCanUseUserId(user.getId())) {
             return false;
         }
         return true;
@@ -47,9 +53,12 @@ public class UserService {
         if (userMapper.signInUser(user) == 1 ) return true ; return false;
     }
 
-    public boolean loginUser(User user, HttpServletRequest request, HttpServletResponse response) {
-        if (userMapper.findUserInfo(user) == 0) return false;
+    public boolean loginUser(Map userInfo, HttpServletRequest request) {
+        userInfo.put("password" ,encryptTool.encrypt(userInfo.get("password").toString()));
+        User user = userMapper.findUserInfo(userInfo);
+        securityTool.removeNotNeedInfo(user, SecurityTool.SecuEnum.LOGIN_SECURE);
         HttpSession session = request.getSession();
+
         session.setAttribute(SessionConst.LOGIN_USER, user);
         return true;
     }

@@ -1,15 +1,16 @@
 package com.company.dto;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
-@ToString
 public class Post {
     String writer;
     String title;
     String mainText;
-    String editTime;
+
+	String editTime;
 }

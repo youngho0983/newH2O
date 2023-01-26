@@ -3,11 +3,12 @@ var xmlHttpResultObj = {
     "canUse": false
 }
 
-function ajaxRequest(type,url,obj ) {
+function ajaxRequest(type,url,obj,contentType ) {
     xmlHttpRequest.onreadystatechange = onAjxRequestStateChange
     xmlHttpResultObj.canUse = false;
     xmlHttpRequest.open(type,url);
-    if(!obj) xmlHttpRequest.send(obj);
+    if(!contentType) {xmlHttpRequest.setRequestHeader("Content-type" , "application/json")}
+    if(!obj) {xmlHttpRequest.send();}else {xmlHttpRequest.send(obj)}
 }
 
 function onAjxRequestStateChange() {
@@ -25,4 +26,3 @@ function onAjxRequestStateChange() {
     }
 }
 
-var afterAjxFunction;

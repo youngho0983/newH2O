@@ -3,14 +3,21 @@ package com.company.controller;
 import com.company.dto.User;
 import com.company.service.UserService;
 import com.company.tool.RegexpTool;
+import com.company.tool.SessionConst;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.Session;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/user")
@@ -47,15 +54,27 @@ public class UserController {
 
     @GetMapping("/login")
     public String login(HttpServletRequest request){
-        request.getSession().invalidate();;
+        request.getSession().invalidate();
+
         return"/user/login";
     }
-    @PostMapping("/login")
-    public String login(User user, HttpServletRequest request, HttpServletResponse response) {
-        if (!userService.loginUser(user, request, response)) {
 
-        }
-        return "/main";
+    @PostMapping("/login")
+    public String loginSuccess(HttpServletRequest request){
+
+        return "main";
     }
 
+    @PostMapping("login-try")
+    public String loginTry(HttpServletRequest request,ModelMap model, @RequestBody Map user) {
+        userService.loginUser(user, request);
+        return "jsonView";
+    }
+
+    @GetMapping("test")
+    public String tests(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        System.out.println(session.getAttribute(SessionConst.LOGIN_USER));
+        return "jsonView";
+    }
 }

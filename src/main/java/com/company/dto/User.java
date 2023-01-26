@@ -11,8 +11,10 @@ public class User {
     private String id;
     private String password;
     private String name;
-    private String address;
+
+	private String address;
     private String phonenumber;
     private String email;
     private int age;
+	
 }
