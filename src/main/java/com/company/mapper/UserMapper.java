@@ -11,4 +11,5 @@ public interface UserMapper {
     public int userCount(String UserId);
     public int signInUser(User user);
     public User findUserInfo(Map user);
+    public int countUser(Map map);
 }

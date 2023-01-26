@@ -56,9 +56,10 @@ public class UserService {
     public boolean loginUser(Map userInfo, HttpServletRequest request) {
         userInfo.put("password" ,encryptTool.encrypt(userInfo.get("password").toString()));
         User user = userMapper.findUserInfo(userInfo);
+        if(user == null) return false;
         securityTool.removeNotNeedInfo(user, SecurityTool.SecuEnum.LOGIN_SECURE);
         HttpSession session = request.getSession();
-
+        session.setMaxInactiveInterval(60*30);
         session.setAttribute(SessionConst.LOGIN_USER, user);
         return true;
     }

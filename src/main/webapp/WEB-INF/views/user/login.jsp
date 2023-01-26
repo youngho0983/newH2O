@@ -25,6 +25,10 @@
 
     function afterAjxFunction() {
       console.log(xmlHttpResultObj.response);
+      temp = JSON.parse(xmlHttpRequest.response);
+      if (temp.login == "success") {
+          window.location.href = "/";
+      }
     }
 
     function tryLogin() {
@@ -33,7 +37,6 @@
         "password": document.getElementById("password").value
       }
       ajaxRequest("POST","login-try",JSON.stringify(obj) );
-
     }
   </script>
 </body>

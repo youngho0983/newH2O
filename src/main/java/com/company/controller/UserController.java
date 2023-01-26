@@ -62,19 +62,29 @@ public class UserController {
     @PostMapping("/login")
     public String loginSuccess(HttpServletRequest request){
 
-        return "main";
+        return "/main";
     }
 
-    @PostMapping("login-try")
+    @PostMapping("/login-try")
     public String loginTry(HttpServletRequest request,ModelMap model, @RequestBody Map user) {
-        userService.loginUser(user, request);
+        if (userService.loginUser(user, request)) {
+            model.addAttribute("login", "success");
+        }
         return "jsonView";
     }
 
-    @GetMapping("test")
+    @GetMapping("/logout")
+    public String logOut(HttpSession session){
+        session.invalidate();
+        return "/main";
+    }
+
+    @GetMapping("/test")
     public String tests(HttpServletRequest request) {
         HttpSession session = request.getSession();
+
         System.out.println(session.getAttribute(SessionConst.LOGIN_USER));
         return "jsonView";
     }
+
 }
