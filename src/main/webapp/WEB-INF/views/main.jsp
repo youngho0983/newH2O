@@ -16,6 +16,8 @@
     </c:otherwise>
 </c:choose>
 
+<a href="/basic_board"> basicBoard</a>
+
 <a href="/chatting/waittingRoom">대화창웨이팅룸</a>
 </body>
 </html>
