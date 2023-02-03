@@ -15,7 +15,37 @@
     기본 게시판 준비
 </body>
 
-<c:forEach var="item" begin="1" end="10">
-    item
-</c:forEach>
+    여기서 리스트를 AJAX로 HTML 모양 그대로 받아 뿌릴 예정
+<div id="list_area">
+
+</div>
+
+<c:if test="${sessionScope.loginUser != null}">
+    <hr>
+    <a href="write_page">write</a>
+</c:if>
+
+<button onclick="changeBoard(1)">GetBoardListTest</button>
+<script>
+    function changeBoard(pageNum){
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET","/basic_board/" +pageNum)
+        xhr.send(1);
+        xhr.onreadystatechange = () =>{
+            if(xhr.readyState == xhr.DONE) {
+                if(xhr.status == 200) {
+                    console.log(xhr.response);
+                    changeBoardView(xhr.response);
+                } else {
+                    alert("문제가 있는데?");
+                    alert(xhr.response);
+                }
+            }
+        }
+    }
+
+    function changeBoardView(response) {
+        document.getElementById("list_area").innerHTML = response;
+    }
+</script>
 </html>

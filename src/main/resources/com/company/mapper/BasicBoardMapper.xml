@@ -3,6 +3,29 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.company.mapper.BasicBoardMapper">
+    <select id="selectBoardList" resultType="com.company.dto.Board" >
+        SELECT
+            BOARDNUM,
+            TITLE
+        FROM BASICBOARD
 
+    </select>
+
+    <select id="test" resultType="int">
+        select 0 from dual
+    </select>
+    <insert id="insertBoard" parameterType="com.company.dto.Board">
+        INSERT INTO
+            BASICBOARD (TITLE,
+                            CONTENT
+                            <if test="parent isNotNull">, PARENTNUM</if>
+)
+        VALUES (
+                    #{title},
+                    #{content},
+                    <if test="parent isNotNull">, #{parentNum}</if>
+               )
+
+    </insert>
 
 </mapper>

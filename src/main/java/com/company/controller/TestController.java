@@ -1,6 +1,5 @@
 package com.company.controller;
 
-import com.company.dto.Post;
 import com.company.service.TestService;
 import com.company.tool.EncryptTool;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +38,7 @@ public class TestController {
     @GetMapping("/boardForUnity/{pageNum}")
     public String getBoard(@PathVariable int pageNum, Model model) {
 
-        List<Post> testList = new ArrayList<>();
-        for(int i = 0; i < 10; i ++){
-            testList.add(new Post("writer" + i, "title" + i , "mainText" + i ,"editTime" + i));
-        }
-        model.addAttribute(testList);
+
         return "jsonView";
     }
 
