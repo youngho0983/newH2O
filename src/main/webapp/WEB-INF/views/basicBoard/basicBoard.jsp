@@ -22,7 +22,7 @@
 
 <c:if test="${sessionScope.loginUser != null}">
     <hr>
-    <a href="write_page">write</a>
+    <a href="basic_board/write_page">write</a>
 </c:if>
 
 <button onclick="changeBoard(1)">GetBoardListTest</button>

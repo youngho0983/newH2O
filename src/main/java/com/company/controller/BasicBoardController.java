@@ -30,9 +30,9 @@ public class BasicBoardController {
         return "/basicBoard/basicBoard";
     }
 
-    @GetMapping("write_page")
+    @GetMapping("/write_page")
     public String writePage(HttpSession session){
-        if(session.getAttribute(SessionConst.LOGIN_USER) == null) return "/";
+        if(session.getAttribute(SessionConst.LOGIN_USER) == null) return "redirect:/";
         return "/writePage";
     }
 

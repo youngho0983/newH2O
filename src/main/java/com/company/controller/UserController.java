@@ -34,7 +34,7 @@ public class UserController {
     }
 
 
-    @PostMapping("/sign-in")
+    @PostMapping("/signin")
     public String makeUser(User user) {
         System.out.println(user);
 
