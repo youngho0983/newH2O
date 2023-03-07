@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.company.mapper.UserMapper">
+    <select id="userCount" resultType="int" parameterType="String">
+        SELECT
+            COUNT(0)
+        FROM
+            O2H.USER
+        WHERE
+            ID = #{userId}
+    </select>
+
+    <insert id="signInUser" parameterType="com.company.dto.User">
+        INSERT INTO
+            O2H.USER (
+                    ID,
+                    PASSWORD,
+                    NAME,
+                    ADDRESS,
+                    PHONENUMBER,
+                    EMAIL,
+                    AGE
+                )
+        VALUES (
+                    #{id},
+                    #{password},
+                    #{name},
+                    #{address},
+                    #{phonenumber},
+                    #{email},
+                    #{age}
+                )
+
+    </insert>
+    <select id="findUserInfo" parameterType="Map" resultType="com.company.dto.User">
+        SELECT
+            *
+        FROM
+            O2H.USER
+        <where>
+            ID = #{id}
+            <if test="password != null and password != ''">
+                AND PASSWORD = #{password}
+            </if>
+        </where>
+    </select>
+</mapper>
